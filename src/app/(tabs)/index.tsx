@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Stack } from 'expo-router';
 
 import ExploreHeader from '@/src/components/ExploreHeader';
