@@ -11,7 +11,7 @@ interface ListingBottomSheetProps {
   category: string;
 }
 
-export default function ListingBottomSheet({ listings, category }: ListingBottomSheetProps) {
+function ListingBottomSheet({ listings, category }: ListingBottomSheetProps) {
   const snapPoints = React.useMemo(() => ['10%', '100%'], []);
   const bottomSheetRef = React.useRef<BottomSheet>(null);
   const [refresh, setRefresh] = React.useState<number>(0);
@@ -42,6 +42,8 @@ export default function ListingBottomSheet({ listings, category }: ListingBottom
     </BottomSheet>
   );
 }
+
+export default React.memo(ListingBottomSheet);
 
 const styles = StyleSheet.create({
   contentContainer: {

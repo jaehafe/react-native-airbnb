@@ -14,7 +14,7 @@ import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 export default function Index() {
   const [category, setCategory] = React.useState('Tiny homes');
   const items = React.useMemo(() => listingData as any, []);
-  const getoItems = React.useMemo(() => listingsDataGeo as any, []);
+  const geoItems = React.useMemo(() => listingsDataGeo as any, []);
 
   const onDataChanged = (category: string) => {
     setCategory(category);
@@ -29,7 +29,7 @@ export default function Index() {
           }}
         />
         {/* <Listings items={items} category={category} /> */}
-        <ListingsMap listings={getoItems} />
+        <ListingsMap listings={geoItems} />
         <ListingBottomSheet listings={items} category={category} />
       </BottomSheetModalProvider>
     </GestureHandlerRootView>
