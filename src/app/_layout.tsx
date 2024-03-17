@@ -1,7 +1,9 @@
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
+import { X } from 'lucide-react-native';
 import { useEffect } from 'react';
+import { TouchableOpacity } from 'react-native';
 
 export { ErrorBoundary } from 'expo-router';
 
@@ -36,9 +38,40 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
+  const router = useRouter();
+
   return (
     <Stack>
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen
+        name="(modals)/login"
+        options={{
+          headerTitle: 'Log in or Sign up',
+          headerTitleStyle: {
+            fontFamily: 'mon-sb',
+          },
+          headerLeft: () => (
+            <TouchableOpacity onPress={() => router.back()}>
+              <X size={20} color={'black'} />
+            </TouchableOpacity>
+          ),
+          presentation: 'modal',
+        }}
+      />
+      <Stack.Screen name="listing/[id]" options={{ headerTitle: '' }} />
+      <Stack.Screen
+        name="(modals)/booking"
+        options={{
+          headerTitle: 'booking',
+          animation: 'fade',
+          headerLeft: () => (
+            <TouchableOpacity onPress={() => router.back()}>
+              <X size={20} color={'black'} />
+            </TouchableOpacity>
+          ),
+          presentation: 'transparentModal',
+        }}
+      />
     </Stack>
   );
 }

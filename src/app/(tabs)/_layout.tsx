@@ -1,39 +1,56 @@
 import React from 'react';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Link, Tabs } from 'expo-router';
-import { Pressable } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { Tabs } from 'expo-router';
+import Colors from '@/src/constants/Colors';
+import { CircleUserRound, Heart, Inbox, Search, Shell } from 'lucide-react-native';
 
-// You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
-function TabBarIcon(props: { name: React.ComponentProps<typeof FontAwesome>['name']; color: string }) {
-  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
-}
-
-export default function TabLayout() {
+export default function Layout() {
   return (
-    <Tabs>
+    <Tabs
+      screenOptions={{
+        tabBarActiveTintColor: Colors.primary,
+        tabBarLabelStyle: {
+          fontFamily: 'mon-sb',
+        },
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (
-            <Link href={'/modal' as any} asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <FontAwesome name="info-circle" size={25} style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }} />
-                )}
-              </Pressable>
-            </Link>
-          ),
+          tabBarLabel: 'Explore',
+          tabBarIcon: ({ color, size }) => <Search color={color} size={size} />,
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="wishlists"
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarLabel: 'Wishlists',
+          tabBarIcon: ({ color, size }) => <Heart color={color} size={size} />,
+        }}
+      />
+      <Tabs.Screen
+        name="trips"
+        options={{
+          tabBarLabel: 'Trips',
+          tabBarIcon: ({ color, size }) => <Shell color={color} size={size} />,
+        }}
+      />
+      <Tabs.Screen
+        name="inbox"
+        options={{
+          tabBarLabel: 'Inbox',
+          tabBarIcon: ({ color, size }) => <Inbox color={color} size={size} />,
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          tabBarLabel: 'Profile',
+          tabBarIcon: ({ color, size }) => <CircleUserRound color={color} size={size} />,
         }}
       />
     </Tabs>
   );
 }
+
+const styles = StyleSheet.create({});
