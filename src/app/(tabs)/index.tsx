@@ -21,7 +21,7 @@ export default function Index() {
           header: () => <ExploreHeader onCategoryChanged={onDataChanged} />,
         }}
       />
-      <Listings listings={items} category={category} />
+      <Listings items={items} category={category} />
     </View>
   );
 }
