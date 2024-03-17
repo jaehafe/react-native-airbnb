@@ -1,8 +1,13 @@
 import * as React from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
 import { Link } from 'expo-router';
+import * as Haptics from 'expo-haptics';
+
 import { Search, SlidersHorizontal } from 'lucide-react-native';
-import Colors from '../constants/Colors';
+
+import Colors from '@/src/constants/Colors';
+
 import { MaterialIcons } from '@expo/vector-icons';
 
 const categories = [
@@ -37,11 +42,19 @@ const categories = [
 ];
 
 export default function ExploreHeader() {
+  const scrollRef = React.useRef<ScrollView>(null);
   const itemsRef = React.useRef<Array<TouchableOpacity | null>>([]);
   const [activeIndex, setActiveIndex] = React.useState(3);
 
   const selectCategory = (index: number) => {
+    const selected = itemsRef.current[index];
     setActiveIndex(index);
+
+    selected?.measure((x) => {
+      scrollRef.current?.scrollTo({ x: x - 16, y: 0, animated: true });
+    });
+
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
   };
 
   return (
@@ -64,11 +77,12 @@ export default function ExploreHeader() {
         </View>
 
         <ScrollView
+          ref={scrollRef}
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{
             alignItems: 'center',
-            gap: 20,
+            gap: 30,
             paddingHorizontal: 16,
           }}
         >
