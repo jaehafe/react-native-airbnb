@@ -7,6 +7,9 @@ import ListingsMap from '@/src/components/ListingsMap';
 
 import listingData from '@/src/assets/data/airbnb-listings.json';
 import listingsDataGeo from '@/src/assets/data/airbnb-listings.geo.json';
+import ListingBottomSheet from '@/src/components/ListingBottomSheet';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 
 export default function Index() {
   const [category, setCategory] = React.useState('Tiny homes');
@@ -18,15 +21,18 @@ export default function Index() {
   };
 
   return (
-    <View style={{ flex: 1, marginTop: 130 }}>
-      <Stack.Screen
-        options={{
-          header: () => <ExploreHeader onCategoryChanged={onDataChanged} />,
-        }}
-      />
-      {/* <Listings items={items} category={category} /> */}
-      <ListingsMap listings={getoItems} />
-    </View>
+    <GestureHandlerRootView style={{ flex: 1, marginTop: 130 }}>
+      <BottomSheetModalProvider>
+        <Stack.Screen
+          options={{
+            header: () => <ExploreHeader onCategoryChanged={onDataChanged} />,
+          }}
+        />
+        {/* <Listings items={items} category={category} /> */}
+        <ListingsMap listings={getoItems} />
+        <ListingBottomSheet listings={items} category={category} />
+      </BottomSheetModalProvider>
+    </GestureHandlerRootView>
   );
 }
 

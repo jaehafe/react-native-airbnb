@@ -4,18 +4,29 @@ import { defaultStyles } from '../constants/Styles';
 import { Link } from 'expo-router';
 import { Heart, Star } from 'lucide-react-native';
 import Animated, { FadeInRight, FadeOutLeft } from 'react-native-reanimated';
+import { BottomSheetFlatList, BottomSheetFlatListMethods } from '@gorhom/bottom-sheet';
 
 interface ListingsProps {
   items: any[];
   category: string;
+  refresh: number;
 }
 
-export default function Listings({ items: items, category }: ListingsProps) {
+export default function Listings({ items: items, category, refresh }: ListingsProps) {
   const [loading, setLoading] = React.useState(false);
-  const listRef = React.useRef<FlatList>(null);
+  const listRef = React.useRef<BottomSheetFlatListMethods>(null);
 
   React.useEffect(() => {
-    console.log('listing length>>', items.length);
+    if (refresh) {
+      scrollListTop();
+    }
+  }, [refresh]);
+
+  const scrollListTop = () => {
+    listRef.current?.scrollToOffset({ offset: 0, animated: true });
+  };
+
+  React.useEffect(() => {
     setLoading(true);
 
     setTimeout(() => {
@@ -55,7 +66,12 @@ export default function Listings({ items: items, category }: ListingsProps) {
 
   return (
     <View style={defaultStyles.container}>
-      <FlatList ref={listRef} renderItem={renderRow} data={loading ? [] : items} />
+      <BottomSheetFlatList
+        ref={listRef}
+        renderItem={renderRow}
+        data={loading ? [] : items}
+        ListHeaderComponent={<Text style={styles.info}>{items.length} homes</Text>}
+      />
     </View>
   );
 }
@@ -70,5 +86,11 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 300,
     borderRadius: 10,
+  },
+  info: {
+    textAlign: 'center',
+    fontFamily: 'mon-sb',
+    fontSize: 16,
+    marginTop: 4,
   },
 });
