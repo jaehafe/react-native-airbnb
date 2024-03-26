@@ -55,7 +55,7 @@ export default function Listings({ items: items, category, refresh }: ListingsPr
             <Text style={{ fontFamily: 'mon' }}>{item.room_type}</Text>
 
             <View style={{ flexDirection: 'row', gap: 4 }}>
-              <Text style={{ fontFamily: 'mon-sb' }}>{item.price}元</Text>
+              <Text style={{ fontFamily: 'mon-sb' }}>{item.price}€</Text>
               <Text style={{ fontFamily: 'mon' }}>night</Text>
             </View>
           </Animated.View>

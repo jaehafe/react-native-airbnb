@@ -76,7 +76,7 @@ export default function ListingsMap({ listings }: ListingsMapProps) {
               }}
             >
               <View style={styles.marker}>
-                <Text style={styles.markerText}>{item.properties.price} 元</Text>
+                <Text style={styles.markerText}>{item.properties.price} €</Text>
               </View>
             </Marker>
           );
