@@ -46,6 +46,7 @@ export default function Layout() {
         name="profile"
         options={{
           tabBarLabel: 'Profile',
+          headerShown: false,
           tabBarIcon: ({ color, size }) => <CircleUserRound color={color} size={size} />,
         }}
       />
